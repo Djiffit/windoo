@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BA03818E251E6EF600FE6330 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA03818D251E6EF600FE6330 /* AppDelegate.swift */; };
+		BA038190251E6EF600FE6330 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA03818F251E6EF600FE6330 /* ContentView.swift */; };
+		BA038192251E6EFE00FE6330 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA038191251E6EFE00FE6330 /* Assets.xcassets */; };
+		BA038195251E6EFE00FE6330 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA038194251E6EFE00FE6330 /* Preview Assets.xcassets */; };
+		BA038198251E6EFE00FE6330 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA038196251E6EFE00FE6330 /* Main.storyboard */; };
+		BA0381A4251E6EFE00FE6330 /* windooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0381A3251E6EFE00FE6330 /* windooTests.swift */; };
+		BA0381AF251E6EFE00FE6330 /* windooUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0381AE251E6EFE00FE6330 /* windooUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BA0381A0251E6EFE00FE6330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA038182251E6EF600FE6330 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA038189251E6EF600FE6330;
+			remoteInfo = windoo;
+		};
+		BA0381AB251E6EFE00FE6330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA038182251E6EF600FE6330 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA038189251E6EF600FE6330;
+			remoteInfo = windoo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BA03818A251E6EF600FE6330 /* windoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = windoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA03818D251E6EF600FE6330 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BA03818F251E6EF600FE6330 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BA038191251E6EFE00FE6330 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA038194251E6EFE00FE6330 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BA038197251E6EFE00FE6330 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BA038199251E6EFE00FE6330 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA03819A251E6EFE00FE6330 /* windoo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = windoo.entitlements; sourceTree = "<group>"; };
+		BA03819F251E6EFE00FE6330 /* windooTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = windooTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA0381A3251E6EFE00FE6330 /* windooTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windooTests.swift; sourceTree = "<group>"; };
+		BA0381A5251E6EFE00FE6330 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA0381AA251E6EFE00FE6330 /* windooUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = windooUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA0381AE251E6EFE00FE6330 /* windooUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windooUITests.swift; sourceTree = "<group>"; };
+		BA0381B0251E6EFE00FE6330 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BA038187251E6EF600FE6330 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA03819C251E6EFE00FE6330 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA0381A7251E6EFE00FE6330 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BA038181251E6EF600FE6330 = {
+			isa = PBXGroup;
+			children = (
+				BA03818C251E6EF600FE6330 /* windoo */,
+				BA0381A2251E6EFE00FE6330 /* windooTests */,
+				BA0381AD251E6EFE00FE6330 /* windooUITests */,
+				BA03818B251E6EF600FE6330 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BA03818B251E6EF600FE6330 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA03818A251E6EF600FE6330 /* windoo.app */,
+				BA03819F251E6EFE00FE6330 /* windooTests.xctest */,
+				BA0381AA251E6EFE00FE6330 /* windooUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA03818C251E6EF600FE6330 /* windoo */ = {
+			isa = PBXGroup;
+			children = (
+				BA03818D251E6EF600FE6330 /* AppDelegate.swift */,
+				BA03818F251E6EF600FE6330 /* ContentView.swift */,
+				BA038191251E6EFE00FE6330 /* Assets.xcassets */,
+				BA038196251E6EFE00FE6330 /* Main.storyboard */,
+				BA038199251E6EFE00FE6330 /* Info.plist */,
+				BA03819A251E6EFE00FE6330 /* windoo.entitlements */,
+				BA038193251E6EFE00FE6330 /* Preview Content */,
+			);
+			path = windoo;
+			sourceTree = "<group>";
+		};
+		BA038193251E6EFE00FE6330 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BA038194251E6EFE00FE6330 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BA0381A2251E6EFE00FE6330 /* windooTests */ = {
+			isa = PBXGroup;
+			children = (
+				BA0381A3251E6EFE00FE6330 /* windooTests.swift */,
+				BA0381A5251E6EFE00FE6330 /* Info.plist */,
+			);
+			path = windooTests;
+			sourceTree = "<group>";
+		};
+		BA0381AD251E6EFE00FE6330 /* windooUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BA0381AE251E6EFE00FE6330 /* windooUITests.swift */,
+				BA0381B0251E6EFE00FE6330 /* Info.plist */,
+			);
+			path = windooUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA038189251E6EF600FE6330 /* windoo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA0381B3251E6EFE00FE6330 /* Build configuration list for PBXNativeTarget "windoo" */;
+			buildPhases = (
+				BA038186251E6EF600FE6330 /* Sources */,
+				BA038187251E6EF600FE6330 /* Frameworks */,
+				BA038188251E6EF600FE6330 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = windoo;
+			productName = windoo;
+			productReference = BA03818A251E6EF600FE6330 /* windoo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BA03819E251E6EFE00FE6330 /* windooTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA0381B6251E6EFE00FE6330 /* Build configuration list for PBXNativeTarget "windooTests" */;
+			buildPhases = (
+				BA03819B251E6EFE00FE6330 /* Sources */,
+				BA03819C251E6EFE00FE6330 /* Frameworks */,
+				BA03819D251E6EFE00FE6330 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA0381A1251E6EFE00FE6330 /* PBXTargetDependency */,
+			);
+			name = windooTests;
+			productName = windooTests;
+			productReference = BA03819F251E6EFE00FE6330 /* windooTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BA0381A9251E6EFE00FE6330 /* windooUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA0381B9251E6EFE00FE6330 /* Build configuration list for PBXNativeTarget "windooUITests" */;
+			buildPhases = (
+				BA0381A6251E6EFE00FE6330 /* Sources */,
+				BA0381A7251E6EFE00FE6330 /* Frameworks */,
+				BA0381A8251E6EFE00FE6330 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA0381AC251E6EFE00FE6330 /* PBXTargetDependency */,
+			);
+			name = windooUITests;
+			productName = windooUITests;
+			productReference = BA0381AA251E6EFE00FE6330 /* windooUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BA038182251E6EF600FE6330 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					BA038189251E6EF600FE6330 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					BA03819E251E6EFE00FE6330 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = BA038189251E6EF600FE6330;
+					};
+					BA0381A9251E6EFE00FE6330 = {
+						CreatedOnToolsVersion = 12.0;
+						TestTargetID = BA038189251E6EF600FE6330;
+					};
+				};
+			};
+			buildConfigurationList = BA038185251E6EF600FE6330 /* Build configuration list for PBXProject "windoo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BA038181251E6EF600FE6330;
+			productRefGroup = BA03818B251E6EF600FE6330 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA038189251E6EF600FE6330 /* windoo */,
+				BA03819E251E6EFE00FE6330 /* windooTests */,
+				BA0381A9251E6EFE00FE6330 /* windooUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BA038188251E6EF600FE6330 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA038198251E6EFE00FE6330 /* Main.storyboard in Resources */,
+				BA038195251E6EFE00FE6330 /* Preview Assets.xcassets in Resources */,
+				BA038192251E6EFE00FE6330 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA03819D251E6EFE00FE6330 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA0381A8251E6EFE00FE6330 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BA038186251E6EF600FE6330 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA038190251E6EF600FE6330 /* ContentView.swift in Sources */,
+				BA03818E251E6EF600FE6330 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA03819B251E6EFE00FE6330 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA0381A4251E6EFE00FE6330 /* windooTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA0381A6251E6EFE00FE6330 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA0381AF251E6EFE00FE6330 /* windooUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BA0381A1251E6EFE00FE6330 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA038189251E6EF600FE6330 /* windoo */;
+			targetProxy = BA0381A0251E6EFE00FE6330 /* PBXContainerItemProxy */;
+		};
+		BA0381AC251E6EFE00FE6330 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA038189251E6EF600FE6330 /* windoo */;
+			targetProxy = BA0381AB251E6EFE00FE6330 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BA038196251E6EFE00FE6330 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA038197251E6EFE00FE6330 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BA0381B1251E6EFE00FE6330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BA0381B2251E6EFE00FE6330 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		BA0381B4251E6EFE00FE6330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = windoo/windoo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"windoo/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = windoo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.djiffit.windoo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BA0381B5251E6EFE00FE6330 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = windoo/windoo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"windoo/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = windoo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.djiffit.windoo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BA0381B7251E6EFE00FE6330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = windooTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.djiffit.windooTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/windoo.app/Contents/MacOS/windoo";
+			};
+			name = Debug;
+		};
+		BA0381B8251E6EFE00FE6330 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = windooTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.djiffit.windooTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/windoo.app/Contents/MacOS/windoo";
+			};
+			name = Release;
+		};
+		BA0381BA251E6EFE00FE6330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = windooUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.djiffit.windooUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = windoo;
+			};
+			name = Debug;
+		};
+		BA0381BB251E6EFE00FE6330 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = windooUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.djiffit.windooUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = windoo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BA038185251E6EF600FE6330 /* Build configuration list for PBXProject "windoo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA0381B1251E6EFE00FE6330 /* Debug */,
+				BA0381B2251E6EFE00FE6330 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA0381B3251E6EFE00FE6330 /* Build configuration list for PBXNativeTarget "windoo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA0381B4251E6EFE00FE6330 /* Debug */,
+				BA0381B5251E6EFE00FE6330 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA0381B6251E6EFE00FE6330 /* Build configuration list for PBXNativeTarget "windooTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA0381B7251E6EFE00FE6330 /* Debug */,
+				BA0381B8251E6EFE00FE6330 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA0381B9251E6EFE00FE6330 /* Build configuration list for PBXNativeTarget "windooUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA0381BA251E6EFE00FE6330 /* Debug */,
+				BA0381BB251E6EFE00FE6330 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BA038182251E6EF600FE6330 /* Project object */;
+}
