@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,11 @@
 		BA038198251E6EFE00FE6330 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA038196251E6EFE00FE6330 /* Main.storyboard */; };
 		BA0381A4251E6EFE00FE6330 /* windooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0381A3251E6EFE00FE6330 /* windooTests.swift */; };
 		BA0381AF251E6EFE00FE6330 /* windooUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0381AE251E6EFE00FE6330 /* windooUITests.swift */; };
+		BA0381C0251E6F3A00FE6330 /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0381BF251E6F3A00FE6330 /* WindowManager.swift */; };
+		BA0381E0251E71D500FE6330 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0381DF251E71D500FE6330 /* Window.swift */; };
+		BA0EC81B251F28A1005A0841 /* KeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0EC81A251F28A1005A0841 /* KeyboardListener.swift */; };
+		BA0EC820251F3355005A0841 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0EC81F251F3355005A0841 /* Layout.swift */; };
+		BA0EC826251F8A04005A0841 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = BA0EC825251F8A04005A0841 /* HotKey */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +53,10 @@
 		BA0381AA251E6EFE00FE6330 /* windooUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = windooUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA0381AE251E6EFE00FE6330 /* windooUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = windooUITests.swift; sourceTree = "<group>"; };
 		BA0381B0251E6EFE00FE6330 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA0381BF251E6F3A00FE6330 /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		BA0381DF251E71D500FE6330 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		BA0EC81A251F28A1005A0841 /* KeyboardListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardListener.swift; sourceTree = "<group>"; };
+		BA0EC81F251F3355005A0841 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA0EC826251F8A04005A0841 /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +115,10 @@
 				BA038199251E6EFE00FE6330 /* Info.plist */,
 				BA03819A251E6EFE00FE6330 /* windoo.entitlements */,
 				BA038193251E6EFE00FE6330 /* Preview Content */,
+				BA0381BF251E6F3A00FE6330 /* WindowManager.swift */,
+				BA0381DF251E71D500FE6330 /* Window.swift */,
+				BA0EC81A251F28A1005A0841 /* KeyboardListener.swift */,
+				BA0EC81F251F3355005A0841 /* Layout.swift */,
 			);
 			path = windoo;
 			sourceTree = "<group>";
@@ -151,6 +165,9 @@
 			dependencies = (
 			);
 			name = windoo;
+			packageProductDependencies = (
+				BA0EC825251F8A04005A0841 /* HotKey */,
+			);
 			productName = windoo;
 			productReference = BA03818A251E6EF600FE6330 /* windoo.app */;
 			productType = "com.apple.product-type.application";
@@ -222,6 +239,9 @@
 				Base,
 			);
 			mainGroup = BA038181251E6EF600FE6330;
+			packageReferences = (
+				BA0EC824251F8A03005A0841 /* XCRemoteSwiftPackageReference "HotKey" */,
+			);
 			productRefGroup = BA03818B251E6EF600FE6330 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,6 +287,10 @@
 			files = (
 				BA038190251E6EF600FE6330 /* ContentView.swift in Sources */,
 				BA03818E251E6EF600FE6330 /* AppDelegate.swift in Sources */,
+				BA0EC81B251F28A1005A0841 /* KeyboardListener.swift in Sources */,
+				BA0381C0251E6F3A00FE6330 /* WindowManager.swift in Sources */,
+				BA0381E0251E71D500FE6330 /* Window.swift in Sources */,
+				BA0EC820251F3355005A0841 /* Layout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +370,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -407,6 +432,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -592,6 +618,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BA0EC824251F8A03005A0841 /* XCRemoteSwiftPackageReference "HotKey" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soffes/HotKey";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BA0EC825251F8A04005A0841 /* HotKey */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BA0EC824251F8A03005A0841 /* XCRemoteSwiftPackageReference "HotKey" */;
+			productName = HotKey;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BA038182251E6EF600FE6330 /* Project object */;
 }

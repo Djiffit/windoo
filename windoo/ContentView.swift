@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  windoo
 //
-//  Created by Kutvonen, Konsta on 9/25/20.
+//  Created by Kutvonen, Konsta on 9/24/20.
 //
 
 import SwiftUI
