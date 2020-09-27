@@ -15,6 +15,9 @@ func mod(_ a: Int, _ n: Int) -> Int {
 }
 
 func getStatusIcons(windows: [Window], leftSide: Int, activeWindow: Int, numWindows: Int) -> ([String], Int, Int) {
+    if windows.count == 0 {
+        return ([], 0, 0)
+    }
     let numWindows = numWindows - 1
     var used: Set<AXUIElement> = []
     var left = leftSide
@@ -25,7 +28,7 @@ func getStatusIcons(windows: [Window], leftSide: Int, activeWindow: Int, numWind
     var leftSide = leftSide
     var activeOffset = 0
     
-    for offset in 0..<numWindows {
+    for offset in 0..<numWindows + 1 {
         if windows[leftSide].window == windows[activeWindow].window {
             activeOffset = offset
         }
@@ -34,7 +37,7 @@ func getStatusIcons(windows: [Window], leftSide: Int, activeWindow: Int, numWind
         leftSide = mod(leftSide + 1, windows.count)
     }
     
-    while leftarr.count + rightarr.count + midarr.count < windows.count {
+    while leftarr.count + rightarr.count + midarr.count < windows.count && (!used.contains(windows[left].window) && (!used.contains(windows[right].window))) {
         left = mod(left - 1, windows.count)
         right = mod(right + 1, windows.count)
         if !used.contains(windows[left].window) {
@@ -170,13 +173,15 @@ class TwoWindowSideBySide: Layout {
         let height = frame.height
         let windSize = CGSize(width: width / 2, height: height)
         return [
-            ResizePosition(position: CGPoint(x: 0, y: 0), size: windSize),
-            ResizePosition(position: CGPoint(x: width / 2, y: 0), size: windSize),
+            ResizePosition(position: frame.origin, size: windSize),
+            ResizePosition(position: CGPoint(x: frame.origin.x + width / 2, y: frame.origin.y), size: windSize),
         ]
         
     }
     
     func activate() {
+        activeWindow = max(0, min(activeWindow, windows.count - 1))
+        leftSide = max(0, min(leftSide, windows.count - 1))
         windows = windows.filter({ (wind) -> Bool in
             return isWindow(wind.window)
         })
@@ -190,7 +195,6 @@ class TwoWindowSideBySide: Layout {
         
         for i in (0..<min(numWindows, windows.count)) {
             moveWindow(windowWrapper: opWindows[i], with: positions[i])
-            print(opWindows)
         }
         if windows.count > 0 {
             activateWindow(window: windows[activeWindow].window, owner: windows[activeWindow].owner, activate: true)
@@ -263,8 +267,6 @@ class ThreeWindowLayout: Layout {
             }
         }
         
-        print(leftSide, activeWindow)
-        
         activate()
     }
     
@@ -284,7 +286,6 @@ class ThreeWindowLayout: Layout {
             res.append(windows[mod(leftSide + 2, windows.count)])
         }
         
-        print(res, res.count)
         return res
     }
     
@@ -293,14 +294,16 @@ class ThreeWindowLayout: Layout {
         let height = frame.height
         let windSize = CGSize(width: width / 3, height: height)
         return [
-            ResizePosition(position: CGPoint(x: 0, y: 0), size: windSize),
-            ResizePosition(position: CGPoint(x: width / 3, y: 0), size: windSize),
-            ResizePosition(position: CGPoint(x: width / 3 * 2, y: 0), size: windSize),
+            ResizePosition(position: frame.origin, size: windSize),
+            ResizePosition(position: CGPoint(x: frame.origin.x + width / 3, y: frame.origin.y), size: windSize),
+            ResizePosition(position: CGPoint(x: frame.origin.x + width / 3 * 2, y: frame.origin.y), size: windSize),
         ]
         
     }
     
     func activate() {
+        activeWindow = max(0, min(activeWindow, windows.count - 1))
+        leftSide = max(0, min(leftSide, windows.count - 1))
         windows = windows.filter({ (wind) -> Bool in
             return isWindow(wind.window)
         })
@@ -367,8 +370,7 @@ class SingleWindowLayout: Layout {
     
     func shiftLayout(by: Int) {
         if windows.count == 0 { return }
-        let same = leftSide == activeWindow
-        activeWindow += by
+        activeWindow = mod(activeWindow + by, windows.count)
         leftSide = activeWindow
         
         activate()
@@ -392,15 +394,20 @@ class SingleWindowLayout: Layout {
         let height = frame.height
         let windSize = CGSize(width: width, height: height)
         return [
-            ResizePosition(position: CGPoint(x: 0, y: 0), size: windSize)
+            ResizePosition(position: frame.origin
+                           , size: windSize)
         ]
         
     }
     
     func activate() {
+        activeWindow = max(0, min(activeWindow, windows.count - 1))
+        leftSide = max(0, min(leftSide, windows.count - 1))
         windows = windows.filter({ (wind) -> Bool in
             return isWindow(wind.window)
         })
+        
+        
         let positions = getPositions()
         let opWindows = getWindowsToResize()
         
@@ -408,8 +415,7 @@ class SingleWindowLayout: Layout {
 //            AXUIElementSetAttributeValue(window.window, "AXFocused" as! CFString, 0 as AnyObject)
 //            AXUIElementSetAttributeValue(window.window, "AXMain" as! CFString, 0 as AnyObject)
 //        }
-        
-        for i in (0..<numWindows).reversed() {
+        for i in (0..<min(numWindows, windows.count)).reversed() {
             moveWindow(windowWrapper: opWindows[i], with: positions[i])
         }
         if windows.count > 0 {

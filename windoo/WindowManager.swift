@@ -7,6 +7,7 @@
 
 import Foundation
 import Cocoa
+import HotKey
 
 func isWindow(_ window: AXUIElement) -> Bool {
     var currSize : AnyObject?
@@ -14,52 +15,138 @@ func isWindow(_ window: AXUIElement) -> Bool {
     return currSize != nil
 }
 
-class WindowManager {
-    
-    var windows: [Window] = []
-    var activePos = 0
+class Display {
     var layouts: [Layout]!
     var activeLayout = 0
+    var activePos = 0
+    var frame: NSRect
     
-    
-    init() {
-        fetchWindows()
-        listDisplays()
-        layouts = [SingleWindowLayout(frame: NSScreen.screens.first!.frame, windows: windows),
-                   TwoWindowSideBySide(frame: NSScreen.screens.first!.frame, windows: windows),
-                   ThreeWindowLayout(frame: NSScreen.screens.first!.frame, windows: windows),
+    init(windows: [Window], frame: NSRect) {
+        self.frame = frame
+        print(frame)
+        layouts = [SingleWindowLayout(frame: frame, windows: windows),
+                   TwoWindowSideBySide(frame: frame, windows: windows),
+                   ThreeWindowLayout(frame: frame, windows: windows),
         ]
     }
     
     func changeLayout(diff: Int) {
+        print("changelayout \(activeLayout)")
         let currActive = layouts[activeLayout].currActive()
-        windows = layouts[activeLayout].getWindows()
+        let windows = layouts[activeLayout].getWindows()
         activeLayout = mod(activeLayout + diff, layouts.count)
         layouts[activeLayout].setActive(act: currActive)
-        layouts[activeLayout].activate(with: windows)
+        if layouts[activeLayout].getWindows().count > 0 {
+            layouts[activeLayout].activate(with: windows)
+        }
     }
     
     func changeWindowPos(by: Int) {
-        layouts[activeLayout].changeWindowPos(by: by)
-    }
-    
-    func listDisplays() {
-        print(NSScreen.screens.first?.deviceDescription)
-        print(NSScreen.screens.first?.frame)
-        
-        for screen in NSScreen.screens {
-            print(screen.frame)
+        if layouts[activeLayout].getWindows().count > 0 {
+            layouts[activeLayout].changeWindowPos(by: by)
         }
     }
     
     func shiftWindows(change: Int) {
-        layouts[activeLayout].shiftLayout(by: change)
+        if layouts[activeLayout].getWindows().count > 0 {
+            layouts[activeLayout].shiftLayout(by: change)
+        }
     }
     
     func activateWindow() {
         print("activating?")
         layouts[activeLayout].activate()
+        print("Activated")
     }
+}
+
+class WindowManager {
+    
+    var activeDisplay = 0
+    var displays: [Display] = []
+    let forward = HotKey(key: .d, modifiers: [.option])
+    let backward = HotKey(key: .a, modifiers: [.option])
+    let windowForward = HotKey(key: .d, modifiers: [.option, .shift])
+    let windowBackward = HotKey(key: .a, modifiers: [.option, .shift])
+    let toggleLayout = HotKey(key: .c, modifiers: [.option])
+    let up = HotKey(key: .w, modifiers: [.option])
+    let down = HotKey(key: .s, modifiers: [.option])
+    
+    
+    init() {
+        
+        
+        forward.keyDownHandler = { [weak self] in
+            self?.getDisplay().shiftWindows(change: 1)
+        }
+        backward.keyDownHandler = { [weak self] in
+            self?.getDisplay().shiftWindows(change: -1)
+        }
+        windowForward.keyDownHandler = { [weak self] in
+            self?.getDisplay().changeWindowPos(by: 1)
+        }
+        windowBackward.keyDownHandler = { [weak self] in
+            self?.getDisplay().changeWindowPos(by: -1)
+        }
+        toggleLayout.keyDownHandler = { [weak self] in
+            self?.getDisplay().changeLayout(diff: 1)
+        }
+        up.keyDownHandler = { [weak self] in
+            self?.changeDisplay(by: -1)
+        }
+        down.keyDownHandler = { [weak self] in
+            self?.changeDisplay(by: 1)
+        }
+        
+        fetchWindows()
+//        listDisplays()
+    }
+    
+    func getDisplay() -> Display {
+        return displays[activeDisplay]
+    }
+    
+    func changeDisplay(by: Int) {
+        activeDisplay = mod(activeDisplay + by, displays.count)
+        getDisplay().activateWindow()
+    }
+    
+    func activateDisplay() {
+        getDisplay().activateWindow()
+    }
+    
+    func listDisplays() {
+        let options = CGWindowListOption(arrayLiteral: .excludeDesktopElements, .optionOnScreenOnly)
+        let windowsListInfo = CGWindowListCopyWindowInfo(options, CGWindowID(0))
+        let infoList = windowsListInfo as! [[String:Any]]
+        let visibleWindows = infoList.filter{ $0["kCGWindowLayer"] as! Int == 0 }
+        var mainWindows: [String] = []
+        var secWindows: [String] = []
+        for entry in visibleWindows {
+            let owner = entry[kCGWindowOwnerName as String] as! String
+            var bounds = entry[kCGWindowBounds as String] as! [String: Int]
+            let pid = entry[kCGWindowOwnerPID as String] as? Int32
+            let rect = CGRect(x: bounds["X"]!, y: bounds["Y"]!, width: bounds["Width"]!, height: bounds["Height"]!)
+            if ((NSScreen.screens[0].frame.contains(rect))) {
+                mainWindows.append(owner)
+            } else {
+                secWindows.append(owner)
+            }
+            
+        }
+        print(NSScreen.screens.first?.deviceDescription)
+        print(NSScreen.screens.first?.frame)
+        print(NSEvent.mouseLocation, "mouse")
+        
+        for screen in NSScreen.screens {
+            print(screen.frame, screen)
+        }
+        
+        print(mainWindows, "first")
+        print(secWindows, "sec")
+    }
+    
+    
     
     func moveWindow(window: AXUIElement, to: CGPoint, size: CGSize) {
         var newPoint = to
@@ -92,51 +179,47 @@ class WindowManager {
         let windowsListInfo = CGWindowListCopyWindowInfo(options, CGWindowID(0))
         let infoList = windowsListInfo as! [[String:Any]]
         let visibleWindows = infoList.filter{ $0["kCGWindowLayer"] as! Int == 0 }
+        var mainWindows: [Window] = []
+        var secWindows: [Window] = []
         
         checkPermissions()
         
         print("Start from da top")
         for entry in visibleWindows {
             let owner = entry[kCGWindowOwnerName as String] as! String
-            var bounds = entry[kCGWindowBounds as String] as? [String: Int]
+            var bounds = entry[kCGWindowBounds as String] as! [String: Int]
             let pid = entry[kCGWindowOwnerPID as String] as? Int32
-            print(bounds, owner)
+            let rect = CGRect(x: bounds["X"]!, y: bounds["Y"]!, width: bounds["Width"]!, height: bounds["Height"]!)
             let appRef = AXUIElementCreateApplication(pid!);
             var value: AnyObject?
+            var windows: Set<AXUIElement> = []
             let result = AXUIElementCopyAttributeValue(appRef, kAXWindowsAttribute as CFString, &value)
-            
+            print(bounds, owner)
             if let windowList = value as? [AXUIElement] {
                 for window in windowList.reversed()
                 {
-                    if isWindow(window) && !windows.contains(where: { (wind) -> Bool in return wind.window == window }) {
-                        windows.append(Window(pid: pid!, owner: owner, window: window))
-                        var res: CFArray?
-                        AXUIElementCopyAttributeNames(window, &res)
-                        for val in res! {
-                            AXUIElementSetAttributeValue(window, "AXFocused" as! CFString, 1 as AnyObject)
-                            var resp: AnyObject?
-                            AXUIElementCopyAttributeValue(window, val as! CFString, &resp)
-                            print(val)
+                    if isWindow(window) && !windows.contains(window) {
+                        let windWrapper = (Window(pid: pid!, owner: owner, window: window))
+                        
+                        if ((NSScreen.screens[0].frame.contains(rect))) {
+                            mainWindows.append(windWrapper)
+                        } else {
+                            secWindows.append(windWrapper)
                         }
-//                        print(res)
                     }
                 }
             }
             
         }
         
-        print(windows.map({ (w) -> String in
-            return w.owner
-        }), windows.count)
-        
-        for wind in visibleWindows {
-            print(wind)
-            let num = wind["kCGWindowNumber"] as! Int32
-            if wind["kCGWindowOwnerName"] as! String == "Firefox" {
-                switchToApp(withWindow: num)
-                break
-            }
-        }
+        print(NSScreen.screens[0].frame)
+        print(NSScreen.screens[1].frame)
+        var secFrame = NSScreen.screens[1].frame
+        secFrame.origin.y = 2183
+        print(mainWindows)
+        displays = [Display(windows: mainWindows, frame: NSScreen.screens[0].frame), Display(windows: secWindows, frame: secFrame)]
+        activateDisplay()
+
     }
     
     func switchToApp(withWindow windowNumber: Int32) {
@@ -150,21 +233,20 @@ class WindowManager {
     }
     
     func tryFocus() {
-        let i = Int.random(in: 0..<windows.count)
-        let window = windows[i].window
-        var res: CFArray?
-        AXUIElementCopyActionNames(window, &res)
-        AXUIElementPerformAction(window, "AXRaise" as CFString)
-        AXUIElementSetAttributeValue(window, kAXFrontmostAttribute as CFString, true as CFBoolean)
-        AXUIElementSetAttributeValue(window, kAXFocusedAttribute as CFString, true as CFBoolean)
-        for app in NSWorkspace.shared.runningApplications {
-            if app.localizedName == windows[i].owner {
-                app.activate(options: .activateIgnoringOtherApps)
-            }
-        }
-        print(res)
-            print(windows[i].owner)
-        }
+//        let i = Int.random(in: 0..<windows.count)
+//        let window = windows[i].window
+//        var res: CFArray?
+//        AXUIElementCopyActionNames(window, &res)
+//        AXUIElementPerformAction(window, "AXRaise" as CFString)
+//        AXUIElementSetAttributeValue(window, kAXFrontmostAttribute as CFString, true as CFBoolean)
+//        AXUIElementSetAttributeValue(window, kAXFocusedAttribute as CFString, true as CFBoolean)
+//        for app in NSWorkspace.shared.runningApplications {
+//            if app.localizedName == windows[i].owner {
+//                app.activate(options: .activateIgnoringOtherApps)
+//            }
+//        }
+        
+    }
     
 }
 

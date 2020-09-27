@@ -40,14 +40,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static var statusBarItem: NSStatusItem!
     var popover = NSPopover()
     
-    let forward = HotKey(key: .d, modifiers: [.option])
-    let backward = HotKey(key: .a, modifiers: [.option])
-    let windowForward = HotKey(key: .d, modifiers: [.option, .shift])
-    let windowBackward = HotKey(key: .a, modifiers: [.option, .shift])
-    let toggleLayout = HotKey(key: .c, modifiers: [.option])
-    
     
     static func createStatusImage(currApps: [String], w: Int, h: Int, activeInds: [Int], activeWindow: Int) {
+        if statusBarItem == nil {
+            AppDelegate.statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+            AppDelegate.statusBarItem?.button?.title = "💻"
+        }
         var iconDict: [String: NSImage] = [:]
         let apps = NSWorkspace.shared.runningApplications
         for app in apps {
@@ -90,22 +88,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        print("what is going on????")
         
-        forward.keyDownHandler = { [weak self] in
-            self?.windowManager.shiftWindows(change: 1)
-        }
-        backward.keyDownHandler = { [weak self] in
-            self?.windowManager.shiftWindows(change: -1)
-        }
-        windowForward.keyDownHandler = { [weak self] in
-            self?.windowManager.changeWindowPos(by: 1)
-        }
-        windowBackward.keyDownHandler = { [weak self] in
-            self?.windowManager.changeWindowPos(by: -1)
-        }
-        toggleLayout.keyDownHandler = { [weak self] in
-            self?.windowManager.changeLayout(diff: 1)
-        }
         keyboard = KeyboardListener(wm: windowManager)
         // Create the SwiftUI view that provides the window contents.
         // Create the window and set the content view.

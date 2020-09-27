@@ -17,16 +17,17 @@ class KeyboardListener {
     
     func keyDown(with event: NSEvent) -> Bool {
 //        print(event)
-        switch event.characters {
-        case "f":
-            windowManager.activateWindow()
-        case "a":
-            windowManager.shiftWindows(change: -1)
-        case "d":
-            windowManager.shiftWindows(change: 1)
-        default:
-            print("no action")
-        }
+//        switch event.characters {
+//        case "f":
+//            windowManager.activateWindow()
+//        case "a":
+//            windowManager.shiftWindows(change: -1)
+//        case "d":
+//            windowManager.shiftWindows(change: 1)
+//        default:
+//            print("no action")
+//        }
+//        return false
         return false
     }
 }
