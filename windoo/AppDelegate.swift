@@ -42,10 +42,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let forward = HotKey(key: .d, modifiers: [.option])
     let backward = HotKey(key: .a, modifiers: [.option])
+    let windowForward = HotKey(key: .d, modifiers: [.option, .shift])
+    let windowBackward = HotKey(key: .a, modifiers: [.option, .shift])
     let toggleLayout = HotKey(key: .c, modifiers: [.option])
     
     
-    static func createStatusImage(currApps: [String], w: Int, h: Int) {
+    static func createStatusImage(currApps: [String], w: Int, h: Int, activeInds: [Int], activeWindow: Int) {
         var iconDict: [String: NSImage] = [:]
         let apps = NSWorkspace.shared.runningApplications
         for app in apps {
@@ -57,11 +59,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let destSize = NSMakeSize(CGFloat(w * icons.count), CGFloat(h))
         let newImage = NSImage(size: destSize)
         newImage.lockFocus()
+        print(activeInds, activeWindow)
         for i in 0..<icons.count {
             let image = icons[i]
             
-            if i == 3 {
-                let gradient = NSGradient(colors: [NSColor.gray])
+            if activeInds.contains(i) {
+                let gradient = NSGradient(colors: [activeWindow == i ? NSColor.systemRed : NSColor.systemBlue])
                 let rect = NSMakeRect(CGFloat(i * w), 0, CGFloat(w), newImage.size.height)
                 let path = NSBezierPath(rect: rect)
                 gradient!.draw(in: path, angle: 0.0)
@@ -71,8 +74,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         newImage.unlockFocus()
         newImage.size = destSize
-    
+        
         statusBarItem.button?.image = newImage
+    
     }
     
     override func awakeFromNib() {
@@ -92,6 +96,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         backward.keyDownHandler = { [weak self] in
             self?.windowManager.shiftWindows(change: -1)
+        }
+        windowForward.keyDownHandler = { [weak self] in
+            self?.windowManager.changeWindowPos(by: 1)
+        }
+        windowBackward.keyDownHandler = { [weak self] in
+            self?.windowManager.changeWindowPos(by: -1)
         }
         toggleLayout.keyDownHandler = { [weak self] in
             self?.windowManager.changeLayout(diff: 1)

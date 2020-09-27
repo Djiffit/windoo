@@ -25,14 +25,22 @@ class WindowManager {
     init() {
         fetchWindows()
         listDisplays()
-        layouts = [SingleWindowLayout(frame: NSScreen.screens.first!.frame, windows: windows), TwoWindowSideBySide(frame: NSScreen.screens.first!.frame, windows: windows)]
+        layouts = [SingleWindowLayout(frame: NSScreen.screens.first!.frame, windows: windows),
+                   TwoWindowSideBySide(frame: NSScreen.screens.first!.frame, windows: windows),
+                   ThreeWindowLayout(frame: NSScreen.screens.first!.frame, windows: windows),
+        ]
     }
     
     func changeLayout(diff: Int) {
         let currActive = layouts[activeLayout].currActive()
+        windows = layouts[activeLayout].getWindows()
         activeLayout = mod(activeLayout + diff, layouts.count)
         layouts[activeLayout].setActive(act: currActive)
-        layouts[activeLayout].activate()
+        layouts[activeLayout].activate(with: windows)
+    }
+    
+    func changeWindowPos(by: Int) {
+        layouts[activeLayout].changeWindowPos(by: by)
     }
     
     func listDisplays() {
