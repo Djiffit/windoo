@@ -50,30 +50,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let apps = NSWorkspace.shared.runningApplications
         for app in apps {
             iconDict[app.localizedName!] = app.icon
+            // Crashed here when closed
         }
         let icons = currApps.map { (name) -> NSImage in
             return iconDict[name]!
         }
+        
+        if icons.count == 0 {
+            return
+        }
         let destSize = NSMakeSize(CGFloat(w * icons.count), CGFloat(h))
         let newImage = NSImage(size: destSize)
         newImage.lockFocus()
-        print(activeInds, activeWindow)
         for i in 0..<icons.count {
             let image = icons[i]
-            
+
             if activeInds.contains(i) {
                 let gradient = NSGradient(colors: [activeWindow == i ? NSColor.systemRed : NSColor.systemBlue])
                 let rect = NSMakeRect(CGFloat(i * w), 0, CGFloat(w), newImage.size.height)
                 let path = NSBezierPath(rect: rect)
                 gradient!.draw(in: path, angle: 0.0)
             }
-            
+
             image.draw(in: NSMakeRect(CGFloat(i * w), 0, CGFloat(w), CGFloat(h)), from: NSMakeRect(0, 0, image.size.width, image.size.height), operation: NSCompositingOperation.sourceOver, fraction: CGFloat(1))
         }
         newImage.unlockFocus()
         newImage.size = destSize
-        
-        statusBarItem.button?.image = newImage
+
+        if newImage.size.width > 0 {
+            statusBarItem.button?.image = newImage
+        }
     
     }
     

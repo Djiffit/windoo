@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Window {
+struct Window: Hashable {
     let pid: Int32
     let owner: String
     let window: AXUIElement

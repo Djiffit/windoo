@@ -9,7 +9,9 @@ import Foundation
 import SwiftUI
 
 func mod(_ a: Int, _ n: Int) -> Int {
-    precondition(n > 0, "modulus must be positive")
+    if n <= 0 {
+        return 0
+    }
     let r = a % n
     return r >= 0 ? r : r + n
 }
@@ -53,6 +55,37 @@ func getStatusIcons(windows: [Window], leftSide: Int, activeWindow: Int, numWind
     return (leftarr.reversed() + midarr + rightarr, leftarr.count, activeOffset + leftarr.count)
 }
 
+func disaengageAll() {
+    let options = CGWindowListOption(arrayLiteral: .excludeDesktopElements, .optionOnScreenOnly)
+    let windowsListInfo = CGWindowListCopyWindowInfo(options, CGWindowID(0))
+    let infoList = windowsListInfo as! [[String:Any]]
+    let visibleWindows = infoList.filter{ $0["kCGWindowLayer"] as! Int == 0 }
+    
+    print("Start from da top")
+    for entry in visibleWindows {
+        let owner = entry[kCGWindowOwnerName as String] as! String
+        var bounds = entry[kCGWindowBounds as String] as! [String: Int]
+        let pid = entry[kCGWindowOwnerPID as String] as? Int32
+        let rect = CGRect(x: bounds["X"]!, y: bounds["Y"]!, width: bounds["Width"]!, height: bounds["Height"]!)
+        let appRef = AXUIElementCreateApplication(pid!);
+        var value: AnyObject?
+        let result = AXUIElementCopyAttributeValue(appRef, kAXWindowsAttribute as CFString, &value)
+        if let windowList = value as? [AXUIElement] {
+            for window in windowList.reversed()
+            {
+                if isWindow(window){
+                    deActivate(window: window)
+                    AXUIElementSetAttributeValue(window, "AXMain" as CFString, 0 as AnyObject)
+                    AXUIElementSetAttributeValue(window, "AXFocused" as CFString, 0 as AnyObject)
+                    AXUIElementSetAttributeValue(window, kAXFrontmostAttribute as CFString,0 as AnyObject)
+                    AXUIElementSetAttributeValue(window, kAXFocusedAttribute as CFString, 0 as AnyObject)
+                }
+            }
+        }
+        
+    }
+}
+
 func moveWindow(windowWrapper: Window, with: ResizePosition) {
     var newPoint = with.position
     let window = windowWrapper.window
@@ -74,12 +107,14 @@ func moveWindow(windowWrapper: Window, with: ResizePosition) {
 func activateWindow(window: AXUIElement, owner: String, activate: Bool) {
 //    AXUIElementSetAttributeValue(window, kAXFrontmostAttribute as CFString, 1 as AnyObject)
 //    AXUIElementSetAttributeValue(window, kAXFocusedAttribute as CFString, 1 as AnyObject)
-//    AXUIElementSetAttributeValue(window, "AXFocused" as CFString, 1 as AnyObject)
     AXUIElementSetAttributeValue(window, "AXMain" as CFString, 1 as AnyObject)
+    AXUIElementSetAttributeValue(window, "AXFocused" as CFString, 1 as AnyObject)
+    AXUIElementSetAttributeValue(window, kAXFrontmostAttribute as CFString, 1 as AnyObject)
+    AXUIElementSetAttributeValue(window, kAXFocusedAttribute as CFString, 1 as AnyObject)
     
     if activate {
         for app in NSWorkspace.shared.runningApplications {
-            if app.localizedName == owner {
+            if app.localizedName == owner && !app.isActive {
                 app.activate(options: .activateIgnoringOtherApps)
             }
         }
@@ -95,6 +130,8 @@ protocol Layout {
     func setActive(act: Int) -> Void
     func changeWindowPos(by: Int) -> Void
     func getWindows() -> [Window]
+    func removeActive() -> Window
+    func addWindow(window: Window, active: Bool) -> Void
 }
 
 struct ResizePosition {
@@ -116,6 +153,23 @@ class TwoWindowSideBySide: Layout {
     
     func getWindows() -> [Window] {
         return windows
+    }
+    
+    func addWindow(window: Window, active: Bool) {
+        if active {
+            windows.insert(window, at: activeWindow)
+            activate()
+        } else {
+            windows.append(window)
+        }
+    }
+    
+    func removeActive() -> Window {
+        let targ = windows[activeWindow]
+        windows = windows.filter({ (wind) -> Bool in
+            return wind != targ
+        })
+        return targ
     }
     
     func setActive(act: Int) {
@@ -180,11 +234,11 @@ class TwoWindowSideBySide: Layout {
     }
     
     func activate() {
-        activeWindow = max(0, min(activeWindow, windows.count - 1))
-        leftSide = max(0, min(leftSide, windows.count - 1))
         windows = windows.filter({ (wind) -> Bool in
             return isWindow(wind.window)
         })
+        activeWindow = max(0, min(activeWindow, windows.count - 1))
+        leftSide = max(0, min(leftSide, windows.count - 1))
         let positions = getPositions()
         let opWindows = getWindowsToResize()
         
@@ -208,7 +262,10 @@ class TwoWindowSideBySide: Layout {
     
     
     func disable() {
-        
+        for window in windows {
+            AXUIElementSetAttributeValue(window.window, "AXFocused" as CFString, 0 as AnyObject)
+            AXUIElementSetAttributeValue(window.window, "AXMain" as CFString, 0 as AnyObject)
+        }
     }
 }
 
@@ -224,9 +281,27 @@ class ThreeWindowLayout: Layout {
         self.windows = windows
     }
     
+    
+    func removeActive() -> Window {
+        let targ = windows[activeWindow]
+        windows = windows.filter({ (wind) -> Bool in
+            return wind != targ
+        })
+        return targ
+    }
+    
     func setActive(act: Int) {
         activeWindow = max(0, min(act, windows.count - 1))
         leftSide = activeWindow
+    }
+    
+    func addWindow(window: Window, active: Bool) {
+        if active {
+            windows.insert(window, at: activeWindow)
+            activate()
+        } else {
+            windows.append(window)
+        }
     }
     
     func getWindows() -> [Window] {
@@ -302,11 +377,11 @@ class ThreeWindowLayout: Layout {
     }
     
     func activate() {
-        activeWindow = max(0, min(activeWindow, windows.count - 1))
-        leftSide = max(0, min(leftSide, windows.count - 1))
         windows = windows.filter({ (wind) -> Bool in
             return isWindow(wind.window)
         })
+        activeWindow = max(0, min(activeWindow, windows.count - 1))
+        leftSide = max(0, min(leftSide, windows.count - 1))
         let positions = getPositions()
         let opWindows = getWindowsToResize()
         
@@ -330,8 +405,12 @@ class ThreeWindowLayout: Layout {
     }
     
     
+    
     func disable() {
-        
+        for window in windows {
+            AXUIElementSetAttributeValue(window.window, "AXFocused" as CFString, 0 as AnyObject)
+            AXUIElementSetAttributeValue(window.window, "AXMain" as CFString, 0 as AnyObject)
+        }
     }
 }
 
@@ -347,6 +426,15 @@ class SingleWindowLayout: Layout {
         self.windows = windows
     }
     
+    func addWindow(window: Window, active: Bool) {
+        if active {
+            windows.insert(window, at: activeWindow)
+            activate()
+        } else {
+            windows.append(window)
+        }
+    }
+    
     func getWindows() -> [Window] {
         return windows
     }
@@ -354,6 +442,14 @@ class SingleWindowLayout: Layout {
     func setActive(act: Int) {
         activeWindow = max(0, min(act, windows.count - 1))
         leftSide = activeWindow
+    }
+    
+    func removeActive() -> Window {
+        let targ = windows[activeWindow]
+        windows = windows.filter({ (wind) -> Bool in
+            return wind != targ
+        })
+        return targ
     }
     
     func currActive() -> Int {
@@ -401,11 +497,11 @@ class SingleWindowLayout: Layout {
     }
     
     func activate() {
-        activeWindow = max(0, min(activeWindow, windows.count - 1))
-        leftSide = max(0, min(leftSide, windows.count - 1))
         windows = windows.filter({ (wind) -> Bool in
             return isWindow(wind.window)
         })
+        activeWindow = max(0, min(activeWindow, windows.count - 1))
+        leftSide = max(0, min(leftSide, windows.count - 1))
         
         
         let positions = getPositions()
@@ -429,8 +525,10 @@ class SingleWindowLayout: Layout {
         }), w: 18, h: 18, activeInds: [leftSide, activeWindow], activeWindow: activeWindow)
     }
     
-    
     func disable() {
-        
+        for window in windows {
+            AXUIElementSetAttributeValue(window.window, "AXFocused" as CFString, 0 as AnyObject)
+            AXUIElementSetAttributeValue(window.window, "AXMain" as CFString, 0 as AnyObject)
+        }
     }
 }

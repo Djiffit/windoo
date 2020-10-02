@@ -14,8 +14,8 @@
             filePath = "windoo/Layout.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
             landmarkName = "shiftLayout(by:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "windoo/Layout.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
             landmarkName = "activate()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "windoo/Layout.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "getStatusIcons(windows:leftSide:activeWindow:numWindows:)"
             landmarkType = "9">
          </BreakpointContent>
